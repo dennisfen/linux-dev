@@ -185,6 +185,9 @@ debian_regs () {
 		olivia)
 			deb_distro="raring"
 			;;
+		petra)
+                        deb_distro="saucy"
+                        ;;
 		esac
 
 		case "${deb_distro}" in
