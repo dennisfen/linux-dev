@@ -27,7 +27,7 @@ CC=/opt/bbb/gcc-linaro-arm-linux-gnueabihf-4.7/bin/arm-linux-gnueabihf-
 # with: ./tools/install_kernel.sh...
 #
 ##For TI: OMAP3/4/AM35xx
-#ZRELADDR=0x80008000
+ZRELADDR=0x80008000
 #
 ##For Freescale: i.mx51:
 #ZRELADDR=0x90008000
