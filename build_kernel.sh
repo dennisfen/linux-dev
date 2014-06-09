@@ -63,10 +63,16 @@ make_kernel () {
 	#address="LOADADDR=${ZRELADDR}"
 
 	cd ${DIR}/KERNEL/
+    #test if we should build modules
+    modules=""
+    if grep -q 'CONFIG_MODULES=y' .config; then
+        modules="modules";
+    fi
+
 	echo "-----------------------------"
-	echo "make -j${CORES} ARCH=arm LOCALVERSION=-${BUILD} CROSS_COMPILE=${CC} ${address} ${image} modules"
+	echo "make -j${CORES} ARCH=arm LOCALVERSION=-${BUILD} CROSS_COMPILE=${CC} ${address} ${image} ${modules}"
 	echo "-----------------------------"
-	make -j${CORES} ARCH=arm LOCALVERSION=-${BUILD} CROSS_COMPILE=${CC} ${address} ${image} modules
+	make -j${CORES} ARCH=arm LOCALVERSION=-${BUILD} CROSS_COMPILE=${CC} ${address} ${image} ${modules}
 
 	unset DTBS
 	cat ${DIR}/KERNEL/arch/arm/Makefile | grep "dtbs:" >/dev/null 2>&1 && DTBS=enable
@@ -179,8 +185,10 @@ make_pkg () {
 }
 
 make_modules_pkg () {
-	pkg="modules"
-	make_pkg
+    if grep -q 'CONFIG_MODULES=y' .config; then
+    	pkg="modules";
+	    make_pkg;
+    fi
 }
 
 make_firmware_pkg () {
