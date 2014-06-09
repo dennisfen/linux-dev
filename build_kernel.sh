@@ -185,7 +185,7 @@ make_pkg () {
 }
 
 make_modules_pkg () {
-    if grep -q 'CONFIG_MODULES=y' .config; then
+    if grep -q 'CONFIG_MODULES=y' KERNEL/.config; then
     	pkg="modules";
 	    make_pkg;
     fi
